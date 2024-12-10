@@ -21,6 +21,8 @@ import org.zerock.board.service.BoardService;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/board/")
 @Log4j2
@@ -31,7 +33,8 @@ public class BoardController {
 
    @GetMapping("/list")
    public void list(Model model){
-
+       List<BoardDTO> list = boardService.getList();
+       model.addAttribute("result", list);
    }
 
     @GetMapping("/register")

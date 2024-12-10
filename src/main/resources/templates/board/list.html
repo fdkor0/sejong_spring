@@ -1,3 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+        <h1 class="mt-4">Board List Page</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Writer Email</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dto : ${result}" >
+                <td>[[${dto.title}]]</td>
+                <td>[[${dto.content}]]</td>
+                <td>[[${dto.writerName}]] <small>[[${dto.writerEmail}]]</small></td>
+                <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a class="btn btn-primary" th:href="@{/board/register}">Register New Board</a>
+
+    </th:block>
+
+</th:block>
+
 </html>

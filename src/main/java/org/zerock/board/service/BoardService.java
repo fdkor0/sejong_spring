@@ -5,11 +5,15 @@ import org.zerock.board.dto.BoardDTO;
 import org.zerock.board.entity.Board;
 import org.zerock.board.entity.Member;
 
+import java.util.List;
+
 public interface BoardService {
 
     Long register(BoardDTO dto);
 
     //void modify(BoardDTO boardDTO);
+
+    List<BoardDTO> getList();
 
     default Board dtoToEntity(BoardDTO dto){
 

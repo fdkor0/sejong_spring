@@ -11,6 +11,9 @@ import org.zerock.board.dto.BoardDTO;
 import org.zerock.board.entity.Board;
 import org.zerock.board.repository.BoardRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -31,8 +34,26 @@ public class BoardServiceImpl implements BoardService{
         return board.getBno();
     }
 
-  
-   
+
+    @Override
+    public List<BoardDTO> getList() {
+        List<Board> entities = repository.findAll();
+        return entities.stream()
+                .map(entity -> entityToDto(entity))
+                .collect(Collectors.toList());
+    }
+
+    private BoardDTO entityToDto(Board board) {
+        return BoardDTO.builder()
+                .bno(board.getBno())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .writerEmail(board.getWriter().getEmail())
+                .writerName(board.getWriter().getName())
+                .regDate(board.getRegDate())
+                .modDate(board.getModDate())
+                .build();
+    }
 
 	
 };
