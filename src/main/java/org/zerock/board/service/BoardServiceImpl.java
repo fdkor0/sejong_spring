@@ -12,6 +12,7 @@ import org.zerock.board.entity.Board;
 import org.zerock.board.repository.BoardRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,20 +40,15 @@ public class BoardServiceImpl implements BoardService{
     public List<BoardDTO> getList() {
         List<Board> entities = repository.findAll();
         return entities.stream()
-                .map(entity -> entityToDto(entity))
+                .map(board -> entityToDTO(board, board.getWriter(), 0L))
                 .collect(Collectors.toList());
     }
 
-    private BoardDTO entityToDto(Board board) {
-        return BoardDTO.builder()
-                .bno(board.getBno())
-                .title(board.getTitle())
-                .content(board.getContent())
-                .writerEmail(board.getWriter().getEmail())
-                .writerName(board.getWriter().getName())
-                .regDate(board.getRegDate())
-                .modDate(board.getModDate())
-                .build();
+    @Override
+    public BoardDTO getView(Long bno) {
+        //Optional<Board> entities = repository.getBoardWithWriter(bno);
+
+        return null;
     }
 
 	

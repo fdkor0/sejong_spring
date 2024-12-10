@@ -33,9 +33,17 @@ public class BoardController {
 
    @GetMapping("/list")
    public void list(Model model){
-       List<BoardDTO> list = boardService.getList();
-       model.addAttribute("result", list);
+       List<BoardDTO> boardList = boardService.getList();
+       model.addAttribute("result", boardList);
    }
+
+    @GetMapping("/read")
+    public void read(Long bno, Model model){
+        log.info("bno: " + bno);
+        BoardDTO boardDTO = boardService.getView(bno);
+        model.addAttribute("dto", boardDTO);
+    }
+
 
     @GetMapping("/register")
     public void register(){

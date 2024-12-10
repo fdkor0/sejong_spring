@@ -17,8 +17,7 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long>{
 
-	 @Query("select b, w from Board b left join b.writer w where b.bno =:bno")
+	 @Query("SELECT b, w from Board as b left JOIN Member AS w on b.writer = w.email where b.bno =:bno")
 	 Object getBoardWithWriter(@Param("bno") Long bno);
-
 
 }
