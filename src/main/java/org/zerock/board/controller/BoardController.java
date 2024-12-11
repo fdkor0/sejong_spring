@@ -38,10 +38,20 @@ public class BoardController {
     }
 
     @GetMapping("/read")
-    public void read(Long bno, Model model){
+    public String read(Long bno, Model model, RedirectAttributes redirectAttributes){
         log.info("bno: " + bno);
-        BoardDTO boardDTO = boardService.getView(bno);
-        model.addAttribute("dto", boardDTO);
+
+        String return_url = "board/read";
+
+        try {
+            BoardDTO boardDTO = boardService.getView(bno);
+            model.addAttribute("dto", boardDTO);
+        }catch (Exception e) {
+            log.error("게시물이 없습니다.: " + e.getMessage());
+
+            return_url = "redirect:/board/list";
+        }
+        return return_url;
     }
 
 
@@ -53,17 +63,26 @@ public class BoardController {
     @PostMapping("/register")
     public String registerPost(BoardDTO dto, RedirectAttributes redirectAttributes){
 
-        log.info("dto..." + dto);
-        //새로 추가된 엔티티의 번호
-        Long bno = boardService.register(dto);
+        String return_url = "redirect:/board/list";
 
-        log.info("BNO: " + bno);
+        try {
+            log.info("dto..." + dto);
+            //새로 추가된 엔티티의 번호
+            Long bno = boardService.register(dto);
 
-        redirectAttributes.addFlashAttribute("msg", bno);
+            log.info("BNO: " + bno);
 
-        return "redirect:/board/read?bno=" + bno;
+            if (bno == null) {
+                log.error("게시물 등록 실패: 반환된 bno가 null입니다.");
+            }
+
+            redirectAttributes.addFlashAttribute("msg", bno);
+            return_url = "redirect:/board/read?bno=" + bno;
+        }catch (Exception e) {
+            log.error("게시물 등록 실패: " + e.getMessage());
+        }
+
+        return return_url;
     }
-
-
 
 }
