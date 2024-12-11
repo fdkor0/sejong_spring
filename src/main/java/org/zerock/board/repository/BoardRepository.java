@@ -20,4 +20,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	 @Query("SELECT b, w from Board as b left JOIN Member AS w on b.writer = w.email where b.bno =:bno")
 	 Object getBoardWithWriter(@Param("bno") Long bno);
 
+
+
+
 }

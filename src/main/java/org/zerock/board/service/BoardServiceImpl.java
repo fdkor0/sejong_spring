@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.zerock.board.dto.BoardDTO;
 import org.zerock.board.entity.Board;
+import org.zerock.board.entity.Member;
 import org.zerock.board.repository.BoardRepository;
 
 import java.util.List;
@@ -46,10 +47,13 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardDTO getView(Long bno) {
-        //Optional<Board> entities = repository.getBoardWithWriter(bno);
+        Board board = repository.findById(bno).orElseThrow(() -> new IllegalArgumentException("Invalid board ID"));
 
-        return null;
+        Member writer = board.getWriter();
+
+        return entityToDTO(board, writer, 0L);
     }
+
 
 	
 };
