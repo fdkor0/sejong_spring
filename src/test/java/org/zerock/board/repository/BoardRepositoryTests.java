@@ -21,9 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
 @SpringBootTest
 @EnableJpaAuditing
 public class BoardRepositoryTests {
@@ -67,7 +64,7 @@ public class BoardRepositoryTests {
 		assertEquals(2, boardDTOList.size());
 		assertEquals("Title 1", boardDTOList.get(0).getTitle());
 		assertEquals("Content 2", boardDTOList.get(1).getContent());
-		//verify(boardRepository, times(1)).findAll();
+		verify(boardRepository, times(1)).findAll();
 	}
 
 

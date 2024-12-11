@@ -36,10 +36,6 @@ public class Board extends BaseEntity {
     @ManyToOne (fetch = FetchType.LAZY)
     private Member writer;
 
-    public Board(long l, String s, String s1, String s2, String mail, LocalDateTime now) {
-        super();
-    }
-
     public void changeTitle(String title){
         this.title = title;
     }
