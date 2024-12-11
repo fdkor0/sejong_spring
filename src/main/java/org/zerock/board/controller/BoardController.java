@@ -31,11 +31,11 @@ public class BoardController {
 
     private final BoardService boardService;
 
-   @GetMapping("/list")
-   public void list(Model model){
-       List<BoardDTO> boardList = boardService.getList();
-       model.addAttribute("result", boardList);
-   }
+    @GetMapping("/list")
+    public void list(Model model){
+        List<BoardDTO> boardList = boardService.getList();
+        model.addAttribute("result", boardList);
+    }
 
     @GetMapping("/read")
     public void read(Long bno, Model model){
@@ -61,9 +61,9 @@ public class BoardController {
 
         redirectAttributes.addFlashAttribute("msg", bno);
 
-        return "redirect:/board/list";
+        return "redirect:/board/read?bno=" + bno;
     }
 
 
-    
+
 }
