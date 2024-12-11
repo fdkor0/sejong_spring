@@ -23,7 +23,6 @@ public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository repository;
 
-
     @Override
     public Long register(BoardDTO dto) {
 
@@ -54,6 +53,15 @@ public class BoardServiceImpl implements BoardService{
         return entityToDTO(board, writer, 0L);
     }
 
+    // 게시글 삭제
+    @Override
+    public boolean deleteBoard(Long bno) {
+        if (repository.existsById(bno)) {
+            repository.deleteById(bno);
+            return true;
+        }
+        return false;
+    }
 
 
 };

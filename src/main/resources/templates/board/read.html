@@ -36,6 +36,9 @@
         <a th:href="@{/board/list}">
             <button type="button" class="btn btn-info">List</button>
         </a>
+        <!-- 삭제 버튼 -->
+        <button type="button" id="deleteButton" class="btn btn-danger replyRemove" th:data-bno="${dto.bno}">DELETE</button>
+
 
         <div >
             <div class="mt-4">
@@ -75,11 +78,23 @@
                 $(".modal").modal();
             }
 
-            $('.btn-clear').click(function(e){
-                searchForm.empty().submit();
+            $('#deleteButton').click(function() {
+                var bno = $(this).data('bno'); //게시글 번호가져오기
+
+                // Ajax 요청으로 삭제 처리
+                $.ajax({
+                    url: '/board/delete/' + bno,
+                    type: 'DELETE',
+                    success: function(response) {
+                        alert(response); // 삭제 성공 메시지
+                        window.location.href = '/board/list';
+                    },
+                    error: function(xhr, status, error) {
+                        alert("삭제 실패: " + xhr.responseText); // 삭제 실패 메시지
+                    }
+                });
             });
         </script>
-
     </th:block>
 
 </th:block>

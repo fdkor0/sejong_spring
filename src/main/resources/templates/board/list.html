@@ -24,7 +24,7 @@
             <tr th:each="dto : ${result}" >
                 <td><a th:href="@{/board/read(bno = ${dto.bno})}">
                 [[${dto.title}]]</a></td>
-                <td>[[${dto.content}]]</td>
+                <td><a th:href="@{/board/read(bno = ${dto.bno})}">[[${dto.content}]]</a></td>
                 <td>[[${dto.writerName}]] <small>[[${dto.writerEmail}]]</small></td>
                 <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
             </tr>

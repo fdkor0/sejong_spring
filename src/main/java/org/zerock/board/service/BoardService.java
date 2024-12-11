@@ -46,4 +46,6 @@ public interface BoardService {
         return boardDTO;
 
     }
+
+    boolean deleteBoard(Long bno);
 }
